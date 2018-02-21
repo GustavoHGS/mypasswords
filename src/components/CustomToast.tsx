@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Text, View } from 'react-native'
 import { Toast } from 'native-base'
 import { connect } from 'react-redux'
 import { IState } from '../reducers/UIReducer'

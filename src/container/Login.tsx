@@ -8,9 +8,6 @@ import {
   View,
 } from 'react-native'
 import * as Redux from 'redux'
-import {
-  NavigationActions,
-} from 'react-navigation'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 const LocalAuth = require('react-native-local-auth')
 import { Form, Item, Input, Label, Container } from 'native-base'
@@ -18,7 +15,6 @@ import { connect } from 'react-redux'
 import { login, enableAuthWithLocalCredentials } from '../actions/AuthActions'
 import { showMessage, resetStackAndGo } from '../actions/UserActions'
 import { IState as IStateAuth } from '../reducers/AuthReducer'
-import { IState as IStateUI } from '../reducers/UIReducer'
 
 
 

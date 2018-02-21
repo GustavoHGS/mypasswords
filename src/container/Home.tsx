@@ -1,22 +1,16 @@
 import * as React from 'react'
 import {
-  Alert,
-  Image,
   StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
 } from 'react-native'
 import Config from 'react-native-config'
 import FastImage from 'react-native-fast-image'
 const LocalAuth = require('react-native-local-auth')
 import { Dispatch, bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import {  Container, Header, Content,
-  Button, Icon, Fab, List, ListItem, Thumbnail,
+import {  Container, Header, Content, 
+  Icon, Fab, List, ListItem,
   Text as NBText, Body, Title, Left, Right } from 'native-base'
 import MAIcon from 'react-native-vector-icons/dist/MaterialCommunityIcons'
-import { IState } from '../reducers/AuthReducer'
 import { saveFingerprintFlag, isFirstLogin, showMessage, logout } from '../actions/UserActions'
 import { fetchSites, clearSites, removeSiteByUrl } from '../actions/SiteActions'
 import { ISite } from '../reducers/SiteReducer'

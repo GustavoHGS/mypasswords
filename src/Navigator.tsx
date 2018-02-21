@@ -6,8 +6,6 @@ import {
   addNavigationHelpers,
   NavigationActions,
   StackNavigator,
-  TabBarBottom,
-  TabNavigator,
 } from 'react-navigation'
 import * as Redux from 'redux'
 import { connect } from 'react-redux'
@@ -18,7 +16,6 @@ import Home from './container/Home'
 import NewSite from './container/NewSite'
 import EditSite from './container/EditSite'
 import { isUserLogged } from './actions/UserActions'
-import { login } from './actions/AuthActions'
 
 const BaseRouter = StackNavigator(
   {

@@ -2,7 +2,6 @@ import * as React from 'react'
 import {
   Alert,
   Dimensions,
-  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -14,8 +13,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { connect } from 'react-redux'
 import { userRegister } from '../actions/UserActions'
 import { IUser } from '../reducers/UserReducer'
-
-const LOGO = require('../assets/icons/padlock.png')
 
 
 const EMAIL_REG = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ // tslint:disable-line

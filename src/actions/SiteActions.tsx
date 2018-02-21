@@ -1,5 +1,4 @@
 import { NavigationActions } from 'react-navigation'
-const Store = require('react-native-simple-store')
 const CircularJSON = require('circular-json')
 import RNSecureKeyStore from 'react-native-secure-key-store'
 import * as Redux from 'redux'

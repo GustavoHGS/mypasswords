@@ -1,5 +1,4 @@
 import * as React from 'react'
-import * as Redux from 'redux'
 import {
   ActivityIndicator,
   Modal,
@@ -8,8 +7,6 @@ import {
   View,
 } from 'react-native'
 import { connect } from 'react-redux'
-import { IState } from '../reducers/UIReducer'
-const Spinner = require('react-native-loading-spinner-overlay') 
 
 
 interface State{

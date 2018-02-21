@@ -284,12 +284,6 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state: any) => {
-  return {
-    navigationState: state.baseRouting,
-  }
-}
-
 const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => {
   return  Redux.bindActionCreators({ saveNewSite }, dispatch)
 }
