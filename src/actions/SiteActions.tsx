@@ -22,7 +22,7 @@ export const saveNewSite = (site:ISite) => (
         dispatch({ type: types.APPLICATION_IS_LOADING, payload: false })
         return dispatch(NavigationActions.back())
       })
-      .catch(err => alert('Erro ao salvar ' + err))
+      .catch(err => console.log('Erro ao salvar ', err))
   }
 )
 
@@ -79,7 +79,7 @@ export const removeSiteByUrl = (url: string) => (
           dispatch({ type: types.SHOW_MESSAGE, payload: 'Site removido com sucesso.' })
           dispatch({ type: types.APPLICATION_IS_LOADING, payload: false })
         })
-        .catch(err => alert('Erro ao salvar ' + err))
+        .catch(err => console.log('Erro ao salvar ', err))
     }
     dispatch({ type: types.APPLICATION_IS_LOADING, payload: false })
   }
@@ -103,7 +103,7 @@ export const editSite = (site:ISite, index: number) => (
         dispatch({ type: types.APPLICATION_IS_LOADING, payload: false })
         return dispatch(NavigationActions.back())
       })
-      .catch(err => alert('Erro ao editar ' + err))
+      .catch(err => console.log('Erro ao editar ', err))
   }
 )
 

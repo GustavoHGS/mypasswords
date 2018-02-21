@@ -16,7 +16,7 @@ const saveLocalUser = (authToken: string, email: string) => {
   Store
     .save('user', { authToken, email })
     .then(() => console.log('token salvo ', authToken))
-    .catch((err: any) => alert('erro salvar ' + err))
+    .catch((err: any) => console.log('erro salvar ', err))
 }
 
 export const login = ({ auth }: AuthState) => (

@@ -31,7 +31,7 @@ export const isUserLogged = () => (
           actions: [NavigationActions.navigate({ routeName: 'Login' })],
         }))
       })
-      .catch((err:any) => alert('error' + err))
+      .catch((err:any) => console.log('error', err))
   }
 )
 
@@ -48,7 +48,7 @@ export const logout = () => (
           actions: [NavigationActions.navigate({ routeName: 'Login' })],
         }))
       })
-      .catch((err:any) => alert('error ' + err))
+      .catch((err:any) => console.log('error ', err))
   }
 )
 
@@ -77,7 +77,7 @@ export const userRegister = (user: IUser) => (
         }
         return dispatch({ type: types.SHOW_MESSAGE, payload: `${data.message} : ${errors}` })
       })
-      .catch((err:any) => alert('error ' + err))
+      .catch((err:any) => console.log('error ', err))
   }
 )
 
@@ -92,7 +92,7 @@ export const saveFingerprintFlag = () => (
         dispatch({ type: types.APPLICATION_IS_LOADING, payload: false })
         return  dispatch(NavigationActions.navigate({ routeName: 'Home' }))
       })
-      .catch(err => alert('Erro ao salvar ' + err))
+      .catch(err => console.log('Erro ao salvar ', err))
   }
 )
 
@@ -110,7 +110,7 @@ export const isFirstLogin = () => (
         saveFirstLogin()
         return dispatch({ type: types.FETCH_USER, payload: { isFirstLogin: true } })
       })
-      .catch((err:any) => alert('error first login' + err))
+      .catch((err:any) => console.log('error first login', err))
   }
 )
 
