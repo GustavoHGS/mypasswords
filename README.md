@@ -1,5 +1,5 @@
 
 ### FAQ
 
-1. [Creating project] first commit
+A simple project using React Native, Redux, React Navigation with Typescript.
 
