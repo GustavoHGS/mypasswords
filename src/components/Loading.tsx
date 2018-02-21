@@ -25,7 +25,7 @@ class Loading extends React.Component<any, State> {
     super(props)
     this.state = {
       visible: false,
-      textContent: 'Carregando...',
+      textContent: '',
     }
     this.renderContent = this.renderContent.bind(this)
   }
@@ -119,6 +119,4 @@ const mapStateToProps = (state:any) => ({
   isLoading: state.ui.applicationIsLoading,
 })
 
-// const mapActionsToProps = (dispatch: Redux.Dispatch<any>) => ({})
-
-export default connect(mapStateToProps, null)(Loading)
+export default connect(mapStateToProps)(Loading)

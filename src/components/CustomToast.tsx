@@ -4,21 +4,42 @@ import { Toast } from 'native-base'
 import { connect } from 'react-redux'
 import { IState } from '../reducers/UIReducer'
 
-class CustomToast extends React.Component<IState> {
-  public render() {
-    if (this.props.errorMessage && this.props.errorMessage.length) {
-      Toast.show({
-        text: this.props.errorMessage,
-        position: 'bottom',
-        buttonText: 'Ok',
-      })
+interface State {
+  message: string
+}
+
+class CustomToast extends React.Component<IState, State> {
+  constructor(props: IState) {
+    super(props)
+    this.state = {
+      message: '',
     }
+    this.showToast = this.showToast.bind(this)
+  }
+  showToast() {
+    Toast.show({
+      text: this.state.message,
+      position: 'bottom',
+      buttonText: 'Ok',
+      duration: 4000,
+    })
+  }
+  componentWillReceiveProps(nextProps: IState) {
+    if (nextProps && nextProps.errorMessage) {
+      this.setState(
+        {
+          message: nextProps.errorMessage,
+        },
+        () => this.showToast())
+    }
+  }
+  public render() {
     return null
   }
 }
 
-const mapStateToProps = ({ errorMessage }: IState) => {
-  return { errorMessage }
+const mapStateToProps = (state: any) => {
+  return { errorMessage: state.ui.errorMessage }
 }
 
-export default connect(mapStateToProps)(CustomToast)
+export default connect<IState, {}, {}>(mapStateToProps)(CustomToast)

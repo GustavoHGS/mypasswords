@@ -1,16 +1,26 @@
 import * as React from 'react'
 import {
+  Dimensions,
   Image,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native'
-import { Form, Item, Input, Label } from 'native-base'
-import { AccessToken, LoginButton } from 'react-native-fbsdk'
+import * as Redux from 'redux'
+import {
+  NavigationActions,
+} from 'react-navigation'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+const LocalAuth = require('react-native-local-auth')
+import { Form, Item, Input, Label, Container } from 'native-base'
 import { connect } from 'react-redux'
-import { login } from '../actions/AuthActions'
-import { IState } from '../reducers/AuthReducer'
+import { login, enableAuthWithLocalCredentials } from '../actions/AuthActions'
+import { showMessage, resetStackAndGo } from '../actions/UserActions'
+import { IState as IStateAuth } from '../reducers/AuthReducer'
+import { IState as IStateUI } from '../reducers/UIReducer'
+
+
 
 const logo = require('../assets/icons/padlock-unlock.png')
 
@@ -19,9 +29,19 @@ interface State {
   password: string,
 }
 
-interface Props extends IState {
-  login({ auth }: IState): any
+interface DispatchProps {
+  login({ auth }: IStateAuth): any
+  showMessage(message: string): any
+  enableAuthWithLocalCredentials(): any
+  resetStackAndGo(route: string): void
 }
+
+interface StateProps {
+  navigation: any
+  showFingerprint: boolean,
+}
+
+type Props = DispatchProps & StateProps
 
 class Login extends React.Component<Props, State> {
 
@@ -32,63 +52,96 @@ class Login extends React.Component<Props, State> {
       password: '',
     }
   }
+  componentDidMount() {
+    this.props.enableAuthWithLocalCredentials()
+  }
+  componentWillReceiveProps(nextProps) {
+    
+  }
+
+  credentialsAuth() {
+    LocalAuth.authenticate({
+      reason: 'Insira sua credencial para continuar...',
+      falbackToPasscode: true,    // fallback to passcode on cancel
+      suppressEnterPassword: true, // disallow Enter Password fallback
+    })
+    .then((success: any) => {
+      this.props.resetStackAndGo('Home')
+    })
+    .catch((error: any) => {
+      this.props.showMessage('Falha na autenticação.')
+    })
+  }
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.top}>
-          <View style={styles.logoContainer}>
-            <Image
-              source={logo}
-              style={styles.logo}
-            />
+      <Container>
+        <KeyboardAwareScrollView>
+          <View style={styles.container}>
+            <View style={styles.top}>
+              <View style={styles.logoContainer}>
+                <Image
+                  source={logo}
+                  style={styles.logo}
+                />
+              </View>
+            </View>
+            <View style={styles.formBox}>
+              <Form style={styles.form}>
+                <Item floatingLabel style={styles.input}>
+                  <Label>Email</Label>
+                  <Input
+                    value={this.state.email}
+                    onChangeText={text => this.setState({ email: text })}
+                  />
+                </Item>
+                <Item floatingLabel last style={styles.input}>
+                  <Label>Senha</Label>
+                  <Input
+                    value={this.state.password}
+                    secureTextEntry
+                    onChangeText={text => this.setState({ password: text })}
+                  />
+                </Item>
+                <TouchableOpacity
+                  onPress={() => this.props.login({
+                    auth: {
+                      email: this.state.email,
+                      password: this.state.password,
+                    },
+                  })
+                  }
+                  style={styles.loginButton}
+                >
+                  <Text style={styles.loginButtonText}>
+                    Entrar
+                  </Text>
+                </TouchableOpacity>
+                {
+                  this.props.showFingerprint ? (
+                    <TouchableOpacity
+                      onPress={() => this.credentialsAuth()}
+                      style={styles.loginButton}
+                    >
+                      <Text style={styles.loginButtonText}>
+                        Entrar com credenciais
+                      </Text>
+                    </TouchableOpacity>
+                  ) : null
+                }
+                <TouchableOpacity
+                  onPress={() => this.props.navigation.navigate('UserRegister')}
+                  style={styles.registerButton}
+                >
+                  <Text style={styles.registerButtonText}>
+                    Não possui cadastro? Registre-se
+                  </Text>
+                </TouchableOpacity>
+              </Form>
+
+            </View>
           </View>
-        </View>
-        <View style={styles.formBox}>
-          <Form style={styles.form}>
-            <Item floatingLabel>
-              <Label>Email</Label>
-              <Input
-                value={this.state.email}
-                onChangeText={text => this.setState({ email: text })}
-              />
-            </Item>
-            <Item floatingLabel last>
-              <Label>Senha</Label>
-              <Input
-                value={this.state.password}
-                secureTextEntry
-                onChangeText={text => this.setState({ password: text })}
-              />
-            </Item>
-            <TouchableOpacity
-              onPress={() => this.props.login({
-                auth: {
-                  email: this.state.email,
-                  password: this.state.password,
-                },
-                accesstoken: '',
-                baseRouting: {},
-              })
-              }
-              style={styles.loginButton}
-            >
-              <Text style={styles.loginButtonText}>
-                Entrar
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => alert('teste')}
-              style={styles.registerButton}
-            >
-              <Text style={styles.registerButtonText}>
-                Não possui cadastro? Registre-se
-              </Text>
-            </TouchableOpacity>
-          </Form>
-
-        </View>
-
-      </View>
+        </KeyboardAwareScrollView>
+      </Container>
     )
   }
 }
@@ -99,10 +152,11 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: 'center',
-    backgroundColor: '#4FD7BF',
+    backgroundColor: '#b2dfdb',
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
+    height: Dimensions.get('window').height - 24,
   },
   formBox: {
     flexDirection: 'row',
@@ -110,6 +164,10 @@ const styles = StyleSheet.create({
   form: {
     flex: 1,
     flexDirection: 'column',
+  },
+  input: {
+    marginRight: 8,
+    flexDirection: 'row-reverse',
   },
   loginButton: {
     flexDirection: 'row',
@@ -135,7 +193,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 100,
+    marginTop: 80,
   },
   registerButton: {
     flexDirection: 'row',
@@ -162,7 +220,16 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: any) => {
   return {
     navigationState: state.baseRouting,
+    showFingerprint: state.ui.showFingerprint,
   }
 }
 
-export default connect(null, { login })(Login)
+const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => {
+  return  Redux.bindActionCreators(
+    {
+      resetStackAndGo, login, showMessage, enableAuthWithLocalCredentials,
+    },
+    dispatch)
+}
+
+export default connect<Props, DispatchProps, any>(mapStateToProps, mapDispatchToProps)(Login)

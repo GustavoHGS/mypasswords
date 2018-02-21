@@ -24,7 +24,7 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action: IAction) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      return { ...state, ...INITIAL_STATE, accesstoken: action.payload }
+      return { ...INITIAL_STATE, ...state, accesstoken: action.payload }
     default:
       return state
   }
