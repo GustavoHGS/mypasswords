@@ -130,7 +130,7 @@ class Home extends React.Component<Props, State> {
           <FastImage
             style={{ height: 80, width: 80 }}
             source={{
-              uri: 'https://cdn.iconscout.com/public/images/icon/free/png-512/unsplash-logo-32e9733dc2f8de31-512x512.png',
+              uri: 'https://cdn.iconscout.com/public/images/icon/free/png-512/unsplash-logo-32e9733dc2f8de31-512x512.png', // tslint:disable-line
               priority: FastImage.priority.normal,
             }}
             resizeMode={FastImage.resizeMode.contain}

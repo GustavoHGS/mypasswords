@@ -1,5 +1,6 @@
 import * as React from 'react'
 import {
+  Alert,
   Dimensions,
   Image,
   StyleSheet,
@@ -66,13 +67,24 @@ class UserRegister extends React.Component<Props, State> {
     }
     return this.setState({ passwordConfirmError: false })
   }
+  showWarning(message: string) {
+    Alert.alert(
+      'Aviso',
+      message,
+      [
+        { text: 'OK', onPress: () => console.log('OK Pressed') },
+      ],
+      // { cancelable: false },
+    )
+  }
   renderErrorButton() {
+    const message = 'A senha precisa no mínimo ter 1 caractere maiúsculo,1 caractere especial, 1 número e ter 8 caracteres.' // tslint:disable-line
     if (this.state.passwordError) {
       return (
         <Icon
           name="close-circle"
           style={{ color: 'red' }}
-          onPress={() => alert('teste')}
+          onPress={() => this.showWarning(message)}
         />
       )
     }
@@ -85,7 +97,7 @@ class UserRegister extends React.Component<Props, State> {
         <Icon
           name="close-circle"
           style={{ color: 'red' }}
-          onPress={() => alert('As senhas diferem')}
+          onPress={() => this.showWarning('Verifique se as senhas são idênticas.')}
         />
       )
     }
@@ -98,7 +110,7 @@ class UserRegister extends React.Component<Props, State> {
         <Icon
           name="close-circle"
           style={{ color: 'red' }}
-          onPress={() => alert('Email invalido')}
+          onPress={() => this.showWarning('Email inválido')}
         />
       )
     }
@@ -110,14 +122,6 @@ class UserRegister extends React.Component<Props, State> {
       <Container>
         <KeyboardAwareScrollView>
           <View style={styles.container}>
-              {/*<View style={styles.top}>
-                <View style={styles.logoContainer}>
-                  <Image
-                    source={LOGO}
-                    style={styles.logo}
-                  />
-                </View>
-              </View>*/}
               <Text style={styles.titleText}>
                   Novo Usuário
                 </Text>

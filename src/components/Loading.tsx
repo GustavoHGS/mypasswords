@@ -11,9 +11,6 @@ import { connect } from 'react-redux'
 import { IState } from '../reducers/UIReducer'
 const Spinner = require('react-native-loading-spinner-overlay') 
 
-interface Props extends IState {
-  
-}
 
 interface State{
   visible: boolean
@@ -40,12 +37,10 @@ class Loading extends React.Component<any, State> {
       <View style={styles.background}>
         <ActivityIndicator
           size="large"
-          color={'#0000ff'}
+          color={'#673D9A'}
           style={{ flex: 1 }}
         />
         <View style={styles.textContainer}>
-          {/*<Text 
-          style={[styles.textContent, this.props.textStyle]}>{this.state.textContent}</Text>*/}
           <Text style={styles.textContent}>{this.state.textContent}</Text>
         </View>
       </View>

@@ -37,8 +37,6 @@ export const login = ({ auth }: AuthState) => (
           index: 0,
           actions: [NavigationActions.navigate({ routeName: 'Home' })],
         }))
-        // return dispatch(NavigationActions.navigate({
-        //   routeName: 'Home', params: { password: auth.password } }))
       })
       .catch((err: any) => {
         console.log('login error ', err)

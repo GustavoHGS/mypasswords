@@ -59,7 +59,7 @@ class CustomToast extends React.Component<OwnProps, State> {
                     name="clipboard"
                     onPress={() => {
                       Clipboard.setString(this.props.site.url)
-                      this.showToast('Link copiado para o clipboard')
+                      this.showToast('Link copiado para o clipboard.')
                     }}
                   />
                 </Item>

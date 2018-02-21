@@ -1,5 +1,6 @@
 import * as React from 'react'
 import {
+  Alert,
   Dimensions,
   Image,
   StyleSheet,
@@ -72,25 +73,32 @@ class NewSite extends React.Component<Props, State> {
       <Icon
           name="close-circle"
           style={{ color: 'red' }}
-          onPress={() => alert(errorMessage)}
+          onPress={() => Alert.alert(
+            'Aviso',
+            errorMessage,
+            [
+              { text: 'OK', onPress: () => console.log('OK Pressed') },
+            ],
+            // { cancelable: false },
+          )}
         />
     )
     switch (errorType) {
       case 'url': {
-        errorMessage = 'url é campo obrigatório'
+        errorMessage = 'URL é um campo obrigatório.'
         if (!this.state.urlError) {
           return icon
         }
         break
       }        
       case 'username':
-        errorMessage = 'usuário/email é um campo obrigatório'
+        errorMessage = 'Usuário/email é um campo obrigatório.'
         if (!this.state.usernameError) {
           return icon
         }
         break
       case 'password':
-        errorMessage = 'senha é um campo obrigatório'
+        errorMessage = 'Senha é um campo obrigatório.'
         if (!this.state.passwordError) {
           return icon
         }

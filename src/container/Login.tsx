@@ -62,8 +62,8 @@ class Login extends React.Component<Props, State> {
   credentialsAuth() {
     LocalAuth.authenticate({
       reason: 'Insira sua credencial para continuar...',
-      falbackToPasscode: true,    // fallback to passcode on cancel
-      suppressEnterPassword: true, // disallow Enter Password fallback
+      falbackToPasscode: true,
+      suppressEnterPassword: true,
     })
     .then((success: any) => {
       this.props.resetStackAndGo('Home')
