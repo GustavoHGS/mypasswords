@@ -9,7 +9,7 @@ const CREDENTIALS_KEY = 'mycredentials'
 
 
 export const saveNewSite = (site:ISite) => (
-  (dispatch: Redux.Dispatch<any>, state: Redux.Store<any>) => {
+  (dispatch: Redux.Dispatch<any>, state: any) => {
     const newSites = [...state().sites.credentials, site]  // tslint:disable-line
     dispatch({ type: types.APPLICATION_IS_LOADING, payload: true })
     RNSecureKeyStore
@@ -26,7 +26,7 @@ export const saveNewSite = (site:ISite) => (
 )
 
 export const fetchSites = () => (
-  (dispatch: Redux.Dispatch<any>, state: Redux.Store<any>) => {
+  (dispatch: Redux.Dispatch<any>, state: any) => {
     dispatch({ type: types.APPLICATION_IS_LOADING, payload: true })
     RNSecureKeyStore
       .get(CREDENTIALS_KEY)
@@ -59,7 +59,7 @@ export const clearSites = () => (
 )
 
 export const removeSiteByUrl = (url: string) => (
-  (dispatch: Redux.Dispatch<any>, state: Redux.Store<any>) => {
+  (dispatch: Redux.Dispatch<any>, state: any) => {
     const localSites = [...state().sites.credentials]
     console.log('sites ', localSites)
     
@@ -85,7 +85,7 @@ export const removeSiteByUrl = (url: string) => (
 )
 
 export const editSite = (site:ISite, index: number) => (
-  (dispatch: Redux.Dispatch<any>, state: Redux.Store<any>) => {
+  (dispatch: Redux.Dispatch<any>, state: any) => {
     const localSites = [...state().sites.credentials]
     const sites = [
       ...localSites.slice(0, index),

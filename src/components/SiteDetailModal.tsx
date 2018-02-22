@@ -18,7 +18,7 @@ interface OwnProps {
   goToEdit(): void
 }
 
-class CustomToast extends React.Component<OwnProps, State> {
+class SiteDetailModal extends React.Component<OwnProps, State> {
   constructor(props: OwnProps) {
     super(props)
     this.state = {
@@ -134,4 +134,4 @@ const mapStateToProps = (state: any) => {
   return { errorMessage: state.ui.errorMessage }
 }
 
-export default connect<IState, {}, {}>(mapStateToProps)(CustomToast)
+export default connect<IState, {}, {}>(mapStateToProps)(SiteDetailModal)
