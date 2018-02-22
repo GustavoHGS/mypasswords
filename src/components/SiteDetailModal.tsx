@@ -2,8 +2,6 @@ import * as React from 'react'
 import { Clipboard, Text, View, StyleSheet } from 'react-native'
 import Modal from 'react-native-modal'
 import { Toast, Card, CardItem, Form, Item, Label, Input, Icon, Button, Body } from 'native-base'
-import { connect } from 'react-redux'
-import { IState } from '../reducers/UIReducer'
 import { ISite } from '../reducers/SiteReducer'
 
 interface State {
@@ -34,9 +32,6 @@ class SiteDetailModal extends React.Component<OwnProps, State> {
       buttonText: 'Ok',
       duration: 4000,
     })
-  }
-  componentWillReceiveProps(nextProps: IState) {
-    
   }
   public render() {
     return (
@@ -130,8 +125,5 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state: any) => {
-  return { errorMessage: state.ui.errorMessage }
-}
 
-export default connect<IState, {}, {}>(mapStateToProps)(SiteDetailModal)
+export default SiteDetailModal
